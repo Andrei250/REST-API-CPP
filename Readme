@@ -1,0 +1,48 @@
+Dumitrescu Andrei 323CC
+
+Mentiuni:
+    - Fisierele helpers.*, buffer.* sunt preluate din laboratorul 10
+    - functiile de creeare de requesturi sunt preluate din laboratorul
+        10 cu mici modificari specifice taskului
+
+Detalii implementare:
+    - am reconstruit functiile din laboratorul 10 pentru crearea
+        requesturilor de tip POST, DELETE, GET
+    - astfel am luat in considerare cazul in care este vorba
+        de functiile pentru carti pentru a adauga header-ul
+        de autentificare
+    - pentru a trimite un JSON am creat singur modul de parsare
+        dintr-un vector de perechi de stringuri in JSON.
+        Astfel am adaugat '"' oriunde era nevoie si parantezele
+        la fel.
+    - pentru client am citit de la tastatura fiecare comanda si
+        am facut o functie pentru fiecare caz.
+    - fiecare functie se bazeaza pe urmatorul tipar:
+        -> creez requestul ( GET, POST sau DELETE )
+        -> trimit requestul la server
+        -> parsez raspunsul in functie de codul de eroare
+    - pentru requesturile speciale, am adaugat si tokenurile
+        necesare ( login cookie pentru enter_library si JWT pentru
+        requesturile ce au legatura cu cartile)
+    - la fiecare request deschid si inchid conexiunea cu serverul,
+        deoarece am observat ca dupa 1-2 requesturi incepe sa nu
+        mai functioneze bine, iar aceasta solutie asigura
+        o functionalitate buna.
+    - am adaugat mesaje speciale de raspuns pentru anumite cazuri.
+        De exemplu, la anumite requesturi de register, raspunsul
+        era NULL, iar userul era logat. De acceea am afisat
+        un mesaj specific.
+        Daca primeam un raspuns cu codul 200, atunci afisam un mesaj
+        de succes.
+    - La anumite raspunsuri nu se oferea un payload si am adaugat caz
+        de baza pentru fiecare.
+
+Folosire Makefile:
+    - rulare make pt compilare
+    - rulare make run pentru rularea clientului
+    - rulare make clean pentru a sterge
+
+
+Scenarii:
+    - Daca dau logout sterg toti tokens ( si autentificare si JWT)
+    - Daca dau login cu alt user cu credentiale bune sterg JWT
